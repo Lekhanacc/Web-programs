@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple AJAX Demo</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h2>AJAX Examples</h2>
+
+<button onclick="ajaxWithoutJquery()">AJAX without jQuery</button>
+<button onclick="ajaxWithJquery()">AJAX with jQuery</button>
+<button onclick="getJSONExample()">getJSON()</button>
+<button onclick="parseJSONExample()">parseJSON()</button>
+
+<div id="output"></div>
+
+<script>
+/* a. AJAX without jQuery */
+function ajaxWithoutJquery() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "data.txt", true);
+    xhr.onload = function () {
+        document.getElementById("output").innerHTML = xhr.responseText;
+    };
+    xhr.send();
+}
+
+/* b. AJAX with jQuery */
+function ajaxWithJquery() {
+    $.ajax({
+        url: "data.txt",
+        success: function(data) {
+            $("#output").html(data);
+        }
+    });
+}
+
+/* c. getJSON() method */
+function getJSONExample() {
+    $.getJSON("data.json", function(data) {
+        $("#output").html(
+            "Name: " + data.name + "<br>" +
+            "Course: " + data.course
+        );
+    });
+}
+
+/* d. parseJSON() method */
+function parseJSONExample() {
+    var jsonText = '{"city":"Bangalore","state":"Karnataka"}';
+    var obj = JSON.parse(jsonText);
+    document.getElementById("output").innerHTML =
+        "City: " + obj.city + "<br>State: " + obj.state;
+}
+</script>
+
+</body>
+</html>

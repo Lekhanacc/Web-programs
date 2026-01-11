@@ -1,0 +1,60 @@
+<!   “The program uses jQuery append() to add content to paragraph and list.
+      The animate() method is used to change the CSS state of a div.
+      During animation, the color of the div is changed using CSS.”       >
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Lab Program</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin-top: 20px;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Interactive jQuery Animation Example</h2>
+
+<p id="para">This is the existing paragraph.</p>
+
+<ul id="list">
+    <li>Existing list item 1</li>
+    <li>Existing list item 2</li>
+</ul>
+
+<button id="btn">Append Content</button>
+
+<div id="box">Animate Me!</div>
+<button id="animateBtn">Animate Div</button>
+
+<script>
+    $("#btn").one("click", function () {
+        $("#para").append(" Appended text.");
+        $("#list").append("<li>New list item</li>");
+    });
+
+    $("#animateBtn").click(function () {
+        $("#box").animate({
+            width: "150px",
+            height: "150px"
+        }, 1000);
+
+        $("#box").css("background-color", "red");
+    });
+</script>
+
+</body>
+</html>

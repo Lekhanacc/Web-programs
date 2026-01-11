@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON and Hashing</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+        textarea, input {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+        }
+        button {
+            margin: 5px 0;
+            padding: 8px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>JSON & Hashing Operations</h2>
+
+<!-- a) JSON to Object -->
+
+
+<h3>1. JSON to JavaScript Object</h3>
+<textarea id="jsonText">{"name":"Ravi","age":20}</textarea>
+<button onclick="jsonToObject()">Convert</button>
+<pre id="objOut"></pre>
+
+<!-- b) JSON Date to Date -->
+
+
+<h3>2. JSON Date to JavaScript Date</h3>
+<input id="dateText" value="2025-01-10">
+<button onclick="jsonToDate()">Convert</button>
+<pre id="dateOut"></pre>
+
+<!-- c) JSON to CSV -->
+
+
+<h3>3. JSON to CSV</h3>
+<textarea id="jsonCsv">[{"name":"A","age":20},{"name":"B","age":21}]</textarea>
+<button onclick="jsonToCsv()">Convert</button>
+<pre id="csvOut"></pre>
+
+<!-- c) CSV to JSON -->
+
+
+<h3>4. CSV to JSON</h3>
+<textarea id="csvJson">name,age
+A,20
+B,21</textarea>
+<button onclick="csvToJson()">Convert</button>
+<pre id="jsonOut"></pre>
+
+<!-- d) Hash -->
+
+
+<h3>5. Create Hash</h3>
+<input id="hashText" value="hello">
+<button onclick="createHash()">Create Hash</button>
+<pre id="hashOut"></pre>
+
+<script>
+
+function jsonToObject() {
+    var text = document.getElementById("jsonText").value;
+    var obj = JSON.parse(text);
+    document.getElementById("objOut").innerText = JSON.stringify(obj, null, 2);
+}
+
+function jsonToDate() {
+    var date = new Date(document.getElementById("dateText").value);
+    document.getElementById("dateOut").innerText = date;
+}
+
+function jsonToCsv() {
+    var arr = JSON.parse(document.getElementById("jsonCsv").value);
+    var csv = "name,age\n";
+    arr.forEach(o => csv += o.name + "," + o.age + "\n");
+    document.getElementById("csvOut").innerText = csv;
+}
+
+function csvToJson() {
+    var lines = document.getElementById("csvJson").value.split("\n");
+    var res = [];
+    for (var i = 1; i < lines.length; i++) {
+        var d = lines[i].split(",");
+        res.push({name: d[0], age: d[1]});
+    }
+    document.getElementById("jsonOut").innerText = JSON.stringify(res, null, 2);
+}
+
+function createHash() {
+    var text = document.getElementById("hashText").value;
+    crypto.subtle.digest("SHA-256", new TextEncoder().encode(text))
+    .then(buf => {
+        var hex = Array.from(new Uint8Array(buf))
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join("");
+        document.getElementById("hashOut").innerText = hex;
+    });
+}
+ 
+</script>
+
+</body>
+</html>
